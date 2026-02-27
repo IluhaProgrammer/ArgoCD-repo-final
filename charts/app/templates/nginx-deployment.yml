@@ -19,9 +19,6 @@ spec:
           imagePullPolicy: {{ .Values.nginx.image.policy }}
           ports:
             - containerPort: {{ .Values.nginx.container.port }}
-          envFrom:
-            - configMapRef:
-                name: {{ .Values.nginx.configMap.name }}-nginx
           resources:
             requests:
               cpu: {{ .Values.nginx.resources.requests.cpu }}
