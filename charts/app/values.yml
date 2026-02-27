@@ -83,3 +83,13 @@ nginx:
   label:
     first: nginx
     second: prod
+
+# ArgocD values
+
+argocd:
+  name: app-release
+  namespace: argocd 
+  url: https://github.com/IluhaProgrammer/ArgoCD-repo-final.git
+  revision: main
+  path: charts/app
+  server_url: https://kubernetes.default.svc
