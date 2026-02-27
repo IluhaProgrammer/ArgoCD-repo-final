@@ -17,8 +17,7 @@ app:
     name: prod-app
     port: 8000
   image:
-    name: myapp=gitlab/app
-    policy: IfNotPresent
+    name: registry.gitlab.com/iluhaprogrammer/final-proc-app/app
     tag: latest
   resources:
     requests:
@@ -59,7 +58,7 @@ nginx:
     name: prod-nginx
     port: 80
   image:
-    name: myapp=gitlab/nginx
+    name: registry.gitlab.com/iluhaprogrammer/final-proc-app/nginx
     policy: IfNotPresent
     tag: latest
   resources:
