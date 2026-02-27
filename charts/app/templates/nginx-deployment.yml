@@ -1,0 +1,32 @@
+apiVersion: nginxs/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.nginx.name }}
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.nginx.repicaCount }}
+  selector:
+    matchLabels:
+      {{ .Values.nginx.label.first }}: {{ .Values.nginx.label.second }}
+  template:
+    metadata:
+      labels:
+        {{ .Values.nginx.label.first }}: {{ .Values.nginx.label.second }}
+    spec:
+      containers:
+        - name: {{ .Values.nginx.container.name }}
+          image: {{ .Values.nginx.image.name }}:{{ .Values.nginx.image.tag }}
+          imagePullPolicy: {{ .Values.nginx.image.policy }}
+          ports:
+            - containerPort: {{ .Values.nginx.container.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.nginx.configMap.name }}-nginx
+          resources:
+            requests:
+              cpu: {{ .Values.nginx.resources.requests.cpu }}
+              memory: {{ .Values.nginx.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.nginx.resources.limits.cpu }}
+              memory: {{ .Values.nginx.resources.limits.memory }}
+              

@@ -1,0 +1,86 @@
+# Эти переменные общие
+
+namespace:
+  name: production
+
+ingress:
+  name: prod-ingress-nginx
+  className: nginx
+  path: /api
+
+# Переменные для работы прложения application
+
+app:
+  name: prod-deploy-app
+  replicaCount: 2
+  container:
+    name: prod-app
+    port: 8000
+  image:
+    name: myapp=gitlab/app
+    policy: IfNotPresent
+    tag: latest
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128mi
+    limits:
+      cpu: 200m
+      memory: 256mi
+  HPA:
+    name: prod-hpa-app
+    min: 2
+    max: 5
+    type: Resources
+    target:
+      type: Utilization
+      avg: 50
+  service:
+    name: prod-service-app
+    type: ClusterIP
+    port: 80
+  label:
+    first: app
+    second: prod
+  configMap:
+    name: prod-config-app
+    values:
+      APP_NAME: prod-app
+      APP_STAGE: production
+      LOG_LEVEL: info
+      DEBUG: false
+
+# Переменные для nginx
+
+nginx:
+  name: prod-deploy-nginx
+  replicaCount: 1
+  container:
+    name: prod-nginx
+    port: 80
+  image:
+    name: myapp=gitlab/nginx
+    policy: IfNotPresent
+    tag: latest
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128mi
+    limits:
+      cpu: 200m
+      memory: 256mi
+  HPA:
+    name: prod-hpa-nginx
+    min: 1
+    max: 3
+    type: Resources
+    target:
+      type: Utilization
+      avg: 50
+  service:
+    name: prod-service-nginx
+    type: ClusterIP
+    port: 90
+  label:
+    first: nginx
+    second: prod

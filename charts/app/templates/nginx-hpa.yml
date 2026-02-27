@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaling 
+metadata:
+  name: {{ .Values.nginx.HPA.name }}
+  namespace: {{ .Values.namespace.name }}
+spec:
+  scaleTargetRef:
+    apiVersion: nginxs/v1
+    kind: Deployment
+    name: {{ .Values.nginx.name }}
+  minReplicas: {{ .Values.nginx.HPA.min }}
+  maxReplicas: {{ .Values.nginx.HPA.max }}
+  metrics:
+    - type: {{ .Values.nginx.HPA.type }}
+      resources:
+        name: cpu
+        target:
+          type: {{ .Values.nginx.HPA.target.type }}
+          averageUtilization: {{ .Values.nginx.HPA.target.avg }}
