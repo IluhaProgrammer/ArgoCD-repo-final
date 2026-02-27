@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 spec:
   scaleTargetRef:
-    apiVersion: nginxs/v1
+    apiVersion: apps/v1
     kind: Deployment
     name: {{ .Values.nginx.name }}
   minReplicas: {{ .Values.nginx.HPA.min }}
