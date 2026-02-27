@@ -52,6 +52,7 @@ app:
 # Переменные для nginx
 
 nginx:
+  serviceName: prod-service-nginx
   service:
     name: prod-service-nginx
     type: ClusterIP
