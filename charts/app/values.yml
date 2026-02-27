@@ -52,6 +52,10 @@ app:
 # Переменные для nginx
 
 nginx:
+  service:
+    name: prod-service-nginx
+    type: ClusterIP
+    port: 90
   name: prod-deploy-nginx
   replicaCount: 1
   container:
@@ -76,10 +80,6 @@ nginx:
     target:
       type: Utilization
       avg: 50
-  service:
-    name: prod-service-nginx
-    type: ClusterIP
-    port: 90
   label:
     first: nginx
     second: prod
