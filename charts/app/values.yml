@@ -83,4 +83,8 @@ nginx:
       avg: 50
   label:
     first: nginx
+<<<<<<< HEAD
     second: prod
+=======
+    second: prod
+>>>>>>> f05b13a (k8s)
